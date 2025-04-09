@@ -1,0 +1,29 @@
+queer-calendar/
+├── README.md
+├── placeholder/
+│   ├── index.html
+│   ├── css/
+│   │   └── styles.css
+│   ├── js/
+│   │   └── main.js
+│   ├── images/
+│   │   ├── logo.svg
+│   │   ├── background.jpg
+│   │   └── slideshow/
+│   │       ├── event1.jpg
+│   │       ├── event2.jpg
+│   │       └── event3.jpg
+│   ├── manifest.json
+│   └── service-worker.js
+└── app/
+    ├── public/
+    │   ├── index.html
+    │   ├── css/
+    │   ├── js/
+    │   ├── images/
+    │   └── manifest.json
+    ├── src/
+    │   └── (React/Vue components for future development)
+    └── firebase/
+        ├── firestore.rules
+        └── firebase.json
