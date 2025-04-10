@@ -36,34 +36,39 @@ p {
     color: #515154;
 }
 
-/* Updated Slideshow Styles - Replace these completely */
+/* Updated Slideshow Container - Replace your current slideshow CSS with this */
 .slideshow-container {
     position: relative;
-    max-width: 800px; /* Increased from 600px */
-    width: 90%; /* Responsive width */
-    margin: 0 auto;
+    width: 100%;
+    max-width: 800px;
+    height: 500px; /* Fixed height */
+    margin: 0 auto 20px;
     overflow: hidden;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     background-color: #f0f0f0; /* Background for letterboxing */
-    aspect-ratio: 16/9; /* Default aspect ratio */
-    max-height: 500px; /* Maximum height */
 }
 
 .slide {
-    display: none;
-    width: 100%;
-    height: 100%;
-    background-size: contain; /* Changed from 'cover' to 'contain' */
-    background-position: center;
-    background-repeat: no-repeat;
     position: absolute;
     top: 0;
     left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    justify-content: center;
+    align-items: center;
 }
 
-.active {
+.slide img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
     display: block;
+}
+
+.slide.active {
+    display: flex;
     animation: fade 1.5s;
 }
 
@@ -98,7 +103,7 @@ p {
     to {opacity: 1}
 }
 
-/* Updated responsive styles */
+/* Media query for smaller screens */
 @media (max-width: 768px) {
     h1 {
         font-size: 2.5rem;
@@ -109,8 +114,6 @@ p {
     }
     
     .slideshow-container {
-        max-width: 95%; /* More width on mobile */
-        aspect-ratio: 4/3; /* Slightly different ratio on mobile */
-        max-height: 400px; /* Slightly smaller max height */
+        height: 400px;
     }
 }
