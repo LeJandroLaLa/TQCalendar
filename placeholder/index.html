@@ -173,72 +173,74 @@
         </div>
     </div>
 
-    <script>
-        // Array of slide images (update these paths to match your actual images)
-        const slideImages = [
-            'slides/TQC_pix_01.jpg',
-            'slides/TQC_pix_02.jpg',
-            'slides/TQC_pix_03.jpg',
-            'slides/TQC_pix_04.jpg',
-            'slides/TQC_pix_05.jpg',
-            'slides/TQC_pix_06.jpg',
-            'slides/TQC_pix_07.jpg',
-            'slides/TQC_pix_08.jpg',
-            'slides/TQC_pix_09.jpg',
-            'slides/TQC_pix_10.jpg',
-            'slides/TQC_pix_11.jpg',
-	    'slides/TQC_pix_12.jpg',
-	    'slides/TQC_pix_13.jpg',
-	    'slides/TQC_pix_14.jpg',
-            'slides/TQC_pix_15.jpg',
-	    'slides/TQC_pix_16.jpg',
-        ];        
-        // Initialize slideshow
-        document.addEventListener('DOMContentLoaded', function() {
-            const slideshowContainer = document.querySelector('.slideshow-container');
-            const indicatorsContainer = document.querySelector('.slide-indicators');
-            
-            // Create slides
-            slideImages.forEach((image, index) => {
-                const slide = document.createElement('div');
-                slide.className = `slide ${index === 0 ? 'active' : ''}`;
-                slide.style.backgroundImage = `url(${image})`;
-                slideshowContainer.appendChild(slide);
-                
-                // Create indicator
-                const indicator = document.createElement('span');
-                indicator.className = `indicator ${index === 0 ? 'active' : ''}`;
-                indicator.onclick = () => showSlide(index);
-                indicatorsContainer.appendChild(indicator);
-            });
-            
-            // Start slideshow
-            if (slideImages.length > 1) {
-                setInterval(nextSlide, 5000);
-            }
+    <!-- Only the JavaScript part is shown below; replace your <script> block with this: -->
+<script>
+    const slideImages = [
+        'slides/TQC_pix_01.webp',
+        'slides/TQC_pix_02.webp',
+        'slides/TQC_pix_03.webp',
+        // ... add all your .webp images
+        'slides/TQC_pix_16.webp',
+    ];        
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const slideshowContainer = document.querySelector('.slideshow-container');
+        const indicatorsContainer = document.querySelector('.slide-indicators');
+        
+        // Create slides
+        slideImages.forEach((image, index) => {
+            const slide = document.createElement('div');
+            slide.className = `slide${index === 0 ? ' active' : ''}`;
+            slide.setAttribute('data-src', image); // Store image path for lazy loading
+            slideshowContainer.appendChild(slide);
+
+            // Create indicator
+            const indicator = document.createElement('span');
+            indicator.className = `indicator${index === 0 ? ' active' : ''}`;
+            indicator.onclick = () => showSlide(index);
+            indicatorsContainer.appendChild(indicator);
         });
-        
-        let currentSlide = 0;
-        
-        function showSlide(index) {
-            const slides = document.querySelectorAll('.slide');
-            const indicators = document.querySelectorAll('.indicator');
-            
-            // Hide all slides
-            slides.forEach(slide => slide.classList.remove('active'));
-            indicators.forEach(indicator => indicator.classList.remove('active'));
-            
-            // Show selected slide
-            currentSlide = index;
-            slides[currentSlide].classList.add('active');
-            indicators[currentSlide].classList.add('active');
+
+        // Load the first image immediately
+        lazyLoadSlide(0);
+
+        // Start slideshow
+        if (slideImages.length > 1) {
+            setInterval(nextSlide, 5000);
         }
-        
-        function nextSlide() {
-            const slides = document.querySelectorAll('.slide');
-            currentSlide = (currentSlide + 1) % slides.length;
-            showSlide(currentSlide);
+    });
+
+    let currentSlide = 0;
+
+    function lazyLoadSlide(index) {
+        const slides = document.querySelectorAll('.slide');
+        const slide = slides[index];
+        if (!slide.style.backgroundImage) {
+            const imgSrc = slide.getAttribute('data-src');
+            slide.style.backgroundImage = `url(${imgSrc})`;
         }
-    </script>
+    }
+
+    function showSlide(index) {
+        const slides = document.querySelectorAll('.slide');
+        const indicators = document.querySelectorAll('.indicator');
+        
+        slides.forEach((slide, idx) => {
+            slide.classList.remove('active');
+            if (idx === index) lazyLoadSlide(idx); // Only load when needed
+        });
+        indicators.forEach(indicator => indicator.classList.remove('active'));
+
+        currentSlide = index;
+        slides[currentSlide].classList.add('active');
+        indicators[currentSlide].classList.add('active');
+    }
+
+    function nextSlide() {
+        const slides = document.querySelectorAll('.slide');
+        currentSlide = (currentSlide + 1) % slides.length;
+        showSlide(currentSlide);
+    }
+</script>
 </body>
 </html>
