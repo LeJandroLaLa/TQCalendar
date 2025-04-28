@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Queer Calendar - Combined Mockup</title>
+    <style>
+        /* Base Styles from JSON & Defaults */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif; /* textStyles.mainText.fontFamily */
+            background-color: #F2F2F2; /* neutralColors.gray */
+            color: #333333; /* textStyles.mainText.color */
+            line-height: 1.6;
+        }
+
+        a {
+            color: #004DFF; /* textStyles.linkText.color */
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #750787; /* textStyles.linkText.hoverColor */
+            text-decoration: underline; /* textStyles.linkText.textDecoration */
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1em;
+        }
+
+        /* --- HEADER SECTION (Inspired by Image 3) --- */
+        .top-bar {
+             text-align: center;
+             padding: 0.5em 1em;
+             font-size: 0.85em;
+             color: #555; /* Medium Gray */
+             background-color: #FFFFFF; /* White */
+             border-bottom: 1px solid #eee;
+        }
+
+        .app-header-image3 {
+            background-color: #FFFFFF; /* White background like mockup */
+            color: #111111; /* Dark text */
+            padding: 1em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+            flex-wrap: wrap; /* Wrap on small screens */
+        }
+        .app-header-image3 .logo-area {
+             font-size: 1.1em;
+             font-weight: bold;
+             /* Styles for "LOGO - CALENDAR" */
+             letter-spacing: 1px;
+             color: #333333;
+             margin-right: 1em; /* Space for nav */
+        }
+         .app-header-image3 .header-nav-image3 {
+             display: flex;
+             align-items: stretch; /* Make items same height */
+             gap: 0; /* No gap, handled by item padding */
+             flex-wrap: wrap;
+             margin-left: auto; /* Push nav to the right */
+         }
+
+        .app-header-image3 .nav-item {
+            padding: 0.8em 1em;
+            text-align: center;
+            font-weight: bold;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-left: 1px solid #eee; /* Separator */
+            transition: background-color 0.2s ease;
+        }
+        /* Applying subtle background hints from mockup */
+        .app-header-image3 .nav-item.today { background-color: rgba(247, 168, 184, 0.3); } /* Pale Pink hint */
+        .app-header-image3 .nav-item.tomorrow { background-color: rgba(85, 205, 252, 0.2); } /* Pale Blue hint */
+        .app-header-image3 .nav-item.this-week { background-color: rgba(213, 245, 227, 0.3); } /* Pale Green hint */
+
+         .app-header-image3 .nav-item:hover {
+              background-color: #eee; /* Simple hover */
+         }
+
+         .app-header-image3 .login-item {
+            padding: 0.8em 1.5em; /* More padding */
+            background-color: #4a3b8f; /* Purple base inspired by mockup */
+            color: #FFFFFF; /* headerFooter.textColor */
+             border-left: 1px solid #eee;
+             font-weight: bold;
+             text-transform: uppercase;
+             cursor: pointer;
+             font-size: 0.9em;
+             position: relative; /* For pseudo-element */
+             overflow: hidden;
+         }
+        /* Rough attempt at the 'glitchy' color bar in login from mockup 3 */
+         .app-header-image3 .login-item::before {
+             content: '';
+             position: absolute;
+             left: 0;
+             top: 0;
+             bottom: 0;
+             width: 6px;
+             background: linear-gradient(180deg, #E40303, #FF8C00, #FFED00, #008026, #004DFF, #750787);
+         }
+        .app-header-image3 .login-item:hover {
+            filter: brightness(1.1);
+        }
+
+        /* --- BODY SECTIONS (Layout from Weekly Calendar Mockup, Colors from JSON) --- */
+
+        /* Location Input Area */
+        .location-area {
+            padding: 2em 0 1.5em 0; /* More padding top */
+            margin-bottom: 1.5em;
+            text-align: center;
+             border-bottom: none; /* Remove border, header has one now */
+        }
+
+        .location-area .hero-title { /* Using the title from Image 3 */
+            font-family: Georgia, serif;
+            font-weight: bold;
+            color: #000000;
+            font-size: 3em; /* Large Title */
+            margin-bottom: 0.2em;
+        }
+        .location-area .sub-title {
+             font-family: Arial, sans-serif;
+             color: #333333;
+             font-size: 1.3em;
+             margin-bottom: 1.5em;
+        }
+        .location-input-wrapper {
+             display: inline-flex;
+             justify-content: center;
+             align-items: stretch; /* Match heights */
+             gap: 0; /* Remove gap, use borders */
+             box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+             border-radius: 8px;
+             overflow: hidden; /* Clip children to rounded corners */
+             margin-bottom: 1em;
+             max-width: 500px;
+             width: 90%;
+        }
+        .location-input-wrapper input[type="text"] {
+            padding: 0.8em 1em; /* More padding */
+            border: 1px solid #ccc;
+            border-right: none; /* Remove right border */
+            border-radius: 8px 0 0 8px; /* Round left corners */
+            font-size: 1em;
+            background-color: #FFFFFF;
+            flex-grow: 1; /* Take available space */
+             color: #333333;
+        }
+        .location-input-wrapper button { /* FIND EVENTS button */
+            background-color: #F7A8B8; /* buttonStyles.primaryButton.defaultBackground */
+            color: #000000;
+            border: 1px solid #ccc;
+            border-left: none; /* Remove left border */
+            border-radius: 0 8px 8px 0; /* Round right corners */
+            padding: 0.8em 1.5em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 1em;
+            white-space: nowrap;
+        }
+         .location-input-wrapper button:hover {
+            background-color: #55CDFC; /* buttonStyles.primaryButton.hoverBackground */
+         }
+         .location-area .optional-text { /* Placeholder text from mockup 3 */
+              font-size: 0.9em;
+              color: #666;
+              margin-top: 1.5em;
+         }
+
+         /* Week Navigation */
+         .week-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5em;
+            padding: 0.5em 0;
+            border-bottom: 1px solid #ddd;
+         }
+         .week-navigation button { /* Styling for Prev/Next buttons */
+            background: #FFFFFF; /* White background */
+             border: 1px solid #ccc;
+             color: #004DFF; /* Link color */
+             cursor: pointer;
+             font-size: 0.9em;
+             padding: 0.5em 1em;
+             font-weight: bold;
+             border-radius: 4px;
+             transition: background-color 0.2s, color 0.2s;
+         }
+          .week-navigation button:hover {
+             background-color: #eee;
+             color: #750787; /* Link hover */
+          }
+         .week-navigation .current-week {
+            font-weight: bold;
+            font-size: 1.1em;
+            color: #333333;
+         }
+
+        /* Calendar Grid Container */
+        .calendar-grid {
+            display: grid;
+            gap: 1.5em;
+            grid-template-columns: 1fr; /* Mobile default */
+        }
+        @media (min-width: 600px) { .calendar-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (min-width: 992px) { .calendar-grid { grid-template-columns: repeat(3, 1fr); } }
+
+        /* Day Column */
+        .day-column {
+            background: #FFFFFF;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 1em;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+        }
+        .day-column h3 {
+            margin: 0 0 1em 0; /* Added bottom margin */
+            font-size: 1.1em;
+            font-weight: bold;
+            font-family: Arial, sans-serif; /* Revert to main font */
+            color: #333333;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 0.6em;
+        }
+         /* Event List Item inside Day Column */
+        .day-column .event-list-item { /* Reusing styles from previous version */
+            padding: 0.8em 0;
+            border-bottom: 1px solid #eee;
+        }
+         .day-column .event-list-item:last-child { border-bottom: none; padding-bottom: 0; }
+        .event-list-item .time { display: block; margin-bottom: 0.3em; font-weight: bold; color: #333333; font-size: 0.9em;}
+        .event-list-item .title a { font-weight: bold; font-size: 1.1em; color: #004DFF; margin-bottom: 0.3em; display: inline-block; }
+         .event-list-item .title a:hover { color: #750787; }
+        .event-list-item .venue { display: block; margin-bottom: 0.6em; font-size: 0.9em; color: #555555; }
+         .event-list-item .venue a { color: inherit; text-decoration: underline; }
+          .event-list-item .venue a:hover { color: #004DFF; }
+        .event-list-item .tags { margin-top: 0.5em; }
+        .event-list-item .tags span { display: inline-block; margin-right: 0.5em; margin-bottom: 0.3em; background: #F2F2F2; color: #333333; padding: 0.3em 0.6em; border-radius: 4px; font-size: 0.8em; }
+         .day-column .view-more-link { display: block; text-align: center; margin-top: 1.5em; font-size: 0.9em; font-weight: bold; }
+         .day-column .no-events { text-align: center; color: #888; padding: 2em 0; font-style: italic; }
+
+
+        /* Footer Styles */
+        .app-footer {
+            background-color: #613915; /* headerFooter.footerBackground */
+            color: #FFFFFF; /* headerFooter.textColor */
+            text-align: center;
+            padding: 1.5em 1em;
+            margin-top: 3em;
+            font-size: 0.9em;
+        }
+        .app-footer a { color: #FFFFFF; text-decoration: underline; margin: 0 0.5em; }
+        .app-footer a:hover { color: #FFED00; /* headerFooter.linkHoverColor */ }
+
+    </style>
+</head>
+<body>
+
+    <!-- Header Inspired by Image 3 -->
+     <div class="top-bar">The Progress Queer Calendar</div> <!-- Top bar from image 3 -->
+    <header class="app-header-image3">
+        <div class="logo-area">LOGO - CALENDAR</div> <!-- Placeholder -->
+        <nav class="header-nav-image3">
+            <a class="nav-item today">TODAY</a>
+            <a class="nav-item tomorrow">TOMORROW</a>
+            <a class="nav-item this-week">THIS WEEK</a>
+             <button class="login-item">LOGIN</button> <!-- Distinct Login block -->
+             <!-- Hamburger Menu Icon -->
+        </nav>
+    </header>
+
+    <div class="container">
+         <!-- Location Section from Image 3 layout -->
+         <section class="location-area">
+            <h1 class="hero-title">The Queer Calendar</h1>
+            <h2 class="sub-title">Find Queer events near you</h2>
+             <div class="location-input-wrapper">
+                 <input type="text" placeholder="City and State"/>
+                  <!-- Placeholder for potential second input if needed -->
+                  <!-- <span class="icon">⚙️</span> -->
+                 <!-- <input type="text" placeholder="Location?" /> -->
+                 <button>Find Events</button>
+             </div>
+             <p class="optional-text">Generate a minimalist for event accessible community for The LLGGTTIIQQ CCaalnneeddrr &gt;</p> <!-- Placeholder -->
+        </section>
+
+        <!-- Week Navigation from Weekly Calendar Mockup -->
+        <section class="week-navigation">
+              <button>&lt; Prev Week</button>
+              <span class="current-week">This Week (Date Range)</span>
+              <button>Next Week &gt;</button>
+         </section>
+
+        <!-- Calendar Grid Container - Populated by JS -->
+        <div class="calendar-grid" id="calendarGrid">
+            <!-- Day 1 -->
+             <div class="day-column">
+                 <h3>THU, APR 18</h3>
+                 <div class="event-list-item">
+                     <span class="time">8:00 PM</span>
+                     <span class="title"><a href="#">Drag Bingo Extravaganza</a></span>
+                     <span class="venue"><a href="#">@ Rainbow Bar</a> - New York, NY</span>
+                     <p class="tags"><span>[Drag]</span><span>[Nightlife]</span></p>
+                 </div>
+                 <!-- More events -->
+                  <a href="#" class="view-more-link">View More</a>
+             </div>
+             <!-- Day 2 -->
+              <div class="day-column">
+                 <h3>FRI, APR 19</h3>
+                  <p class="no-events">No events scheduled.</p>
+              </div>
+             <!-- Day 3 -->
+               <div class="day-column">
+                 <h3>SAT, APR 20</h3>
+                  <div class="event-list-item">
+                    <span class="time">2:00 PM</span>
+                    <span class="title"><a href="#">Community Picnic</a></span>
+                    <span class="venue"><a href="#">@ Central Park</a> - New York, NY</span>
+                    <p class="tags"><span>[Community]</span><span>[Food]</span></p>
+                </div>
+               </div>
+             <!-- More day columns generated dynamically -->
+        </div>
+
+    </div><!-- /container -->
+
+    <footer class="app-footer">
+        <p>© 2024 The Queer Calendar | <a href="#">Privacy Policy</a> | <a href="#">Contact</a></p>
+    </footer>
+
+</body>
+</html>
