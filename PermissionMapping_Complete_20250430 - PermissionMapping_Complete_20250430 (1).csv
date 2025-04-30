@@ -1,0 +1,71 @@
+Collection,Field Name,Editable by Admin,Editable by Organizer,Editable by Host,Editable by Venue Contact,Editable by Planner,Editable by Performer (Self),Editable by User (Self),Other Notes
+events,eventName,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,FALSE,Organizer/Planner must be linked to this specific event via organizerId
+events,startDateTime,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,FALSE,Organizer/Planner linked; Rule should add condition: request.time < resource.data.startDateTime
+events,endDateTime,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,FALSE,Organizer/Planner linked; Rule should add condition: request.time < resource.data.startDateTime
+events,city,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,FALSE,Organizer/Planner linked
+events,state,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,FALSE,Organizer/Planner linked
+events,venueId,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,FALSE,Organizer/Planner linked; Rule condition: Allow edit only if all approval statuses are 'pending'
+events,organizerId,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,Admin only (or secure Cloud Function for specific reassignment)
+events,hostId,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,FALSE,Organizer/Planner linked can assign/change Host
+events,performerIds,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,FALSE,Organizer/Planner linked can add/remove registered performers
+events,unregisteredPerformers,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,FALSE,Organizer/Planner linked can add/remove unregistered performers
+events,description,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,FALSE,Organizer/Planner linked
+events,tags,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,FALSE,Organizer/Planner linked
+events,rsvpRequired,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,FALSE,Organizer/Planner linked
+events,capacity,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,FALSE,Organizer/Planner linked
+events,ticketUrl,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,FALSE,Organizer/Planner linked; Optional field
+events,approvals.venue,TRUE,FALSE,TRUE,TRUE,FALSE,FALSE,FALSE,Venue Contact linked ONLY via event.venueId -> venue.venueManagerIds; Action: Set to approved/rejected
+events,approvals.host,TRUE,FALSE,TRUE,FALSE,FALSE,FALSE,FALSE,User linked via event.hostId ONLY; Action: Set to approved/rejected
+events,approvals.organizer,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,FALSE,User linked via event.organizerId ONLY; Action: Set to approved/rejected
+events,eventStatus,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,Read-only via rules; Set ONLY via Cloud Function triggered by approvals.organizer change
+events,eventImageUrl,TRUE,TRUE,FALSE,FALSE,TRUE,FALSE,FALSE,Organizer/Planner linked
+events,commentsCloseDate,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,Set ONLY via Cloud Function
+events,deletedAt,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,Admin ONLY sets timestamp for soft delete
+users,name,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,User edits own only
+users,email,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,Read-only; managed by Firebase Auth
+users,roles,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,Admin ONLY manages roles
+users,linkedPerformerId,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,"Managed by Admin or specific backend flow (e.g., invite acceptance)"
+users,linkedVenueIds,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,"Managed by Admin or specific backend flow (e.g., invite acceptance)"
+users,notes,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,User edits own only
+users,profileImageUrl,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,User edits own only
+users,deletedAt,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,Admin ONLY for soft delete
+performers,name,TRUE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,Registered user (linkedUserId matches auth.uid) edits OWN linked performer profile name
+performers,type,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,"Set on creation (by Admin/Invite Function?), likely not editable"
+performers,contactUserId,TRUE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,Admin ONLY (FALSE for Performer Self).
+performers,memberUserIds,TRUE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,TRUE for Performer(Self) (if they are the contactUserId) and TRUE for Admin.
+performers,isRegistered,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,Read-only; Set automatically by system when linkedUserId is added
+performers,linkedUserId,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,Read-only; Set automatically by system during registration/linking
+performers,email,TRUE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,Registered user edits OWN profile email?
+performers,externalProfileLink,TRUE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,Registered user edits OWN profile link; Admin edits any. Subject to review policy.
+performers,notes,TRUE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,Registered user edits OWN profile notes?
+performers,profileImageUrl,TRUE,FALSE,FALSE,FALSE,FALSE,TRUE,FALSE,Registered user edits OWN profile image?
+performers,deletedAt,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,Admin ONLY for soft delete
+venues,venueName,TRUE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,Venue Contact linked to this venue ONLY edits
+venues,address,TRUE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,Venue Contact linked ONLY edits
+venues,city,TRUE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,Venue Contact linked ONLY edits
+venues,state,TRUE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,Venue Contact linked ONLY edits
+venues,capacity,TRUE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,Venue Contact linked ONLY edits
+venues,venueManagerIds,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,Admin ONLY manages assignments
+venues,notes,TRUE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,Venue Contact linked ONLY edits
+venues,venueImageUrl,TRUE,FALSE,FALSE,TRUE,FALSE,FALSE,FALSE,Venue Contact linked ONLY edits
+venues,deletedAt,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,Admin ONLY for soft delete
+comments,content,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,TRUE,"User edits own comment. Add Rule: request.time < resource.data.createdAt + time.duration.value(15, 'm')?"
+comments,deletedAt,TRUE,FALSE,FALSE,FALSE,FALSE,TRUE,TRUE,User soft-deletes own comment; Admin soft-deletes any
+eventapprovals,eventId,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,Immutable log. Create Only.
+eventapprovals,approverUserId,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,Immutable log. Create Only.
+eventapprovals,approvalRole,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,Immutable log. Create Only.
+eventapprovals,action,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,Immutable log. Create Only.
+eventapprovals,decisionTimestamp,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,Immutable log. Create Only.
+eventapprovals,comments,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,Immutable log. Create Only.
+eventapprovals,deletedAt,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,Admin ONLY for potential archival after retention period.
+abusereports,reporterUserId,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,Immutable. Set on Create.
+abusereports,reportType,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,Immutable. Set on Create.
+abusereports,reportedItemId,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,Immutable. Set on Create.
+abusereports,reportReason,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,Immutable. Set on Create.
+abusereports,status,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,"Admin ONLY updates status (e.g., 'pending', 'reviewed', 'action_taken')."
+abusereports,createdAt,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,Immutable. Set on Create.
+abusereports,reviewedAt,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,Admin ONLY sets.
+abusereports,reviewerUserId,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,"Admin ONLY sets their ID when reviewing.
+"
+abusereports,deletedAt,TRUE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,Admin ONLY for potential archival.
+invitations,,,,,,,,,Generally not directly editable; managed via create/accept flow. Review specific fields if needed.
